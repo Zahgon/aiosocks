@@ -57,16 +57,7 @@ async def create_connection(protocol_factory, proxy, proxy_auth, dst, *,
     waiter = asyncio.Future(loop=loop)
 
     def socks_factory():
-        if isinstance(proxy, Socks4Addr):
-            socks_proto = Socks4Protocol
-        else:
-            socks_proto = Socks5Protocol
-
-        return socks_proto(proxy=proxy, proxy_auth=proxy_auth, dst=dst,
-                           app_protocol_factory=protocol_factory,
-                           waiter=waiter, remote_resolve=remote_resolve,
-                           loop=loop, ssl=ssl, server_hostname=server_hostname,
-                           reader_limit=reader_limit)
+        pass
 
     try:
         transport, protocol = await loop.create_connection(
@@ -88,8 +79,4 @@ async def create_connection(protocol_factory, proxy, proxy_auth, dst, *,
 
 async def open_connection(proxy, proxy_auth, dst, *, remote_resolve=True,
                           loop=None, limit=DEFAULT_LIMIT, **kwds):
-    _, protocol = await create_connection(
-        None, proxy, proxy_auth, dst, reader_limit=limit,
-        remote_resolve=remote_resolve, loop=loop, **kwds)
-
-    return protocol.reader, protocol.writer
+    pass
